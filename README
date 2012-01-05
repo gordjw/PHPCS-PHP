@@ -1,0 +1,5 @@
+PHPCS-PHP
+
+PHP interface to PHPCS
+
+Use results from PHPCS inside your own PHP programs.
