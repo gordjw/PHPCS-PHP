@@ -8,3 +8,4 @@ Usage:
 $phpcs = new PHPCS( "/path/to/check" );
 $results = $phpcs->generate_report();
 $results->_print();
+or print_r( $results ); (you can use the array however you like)
