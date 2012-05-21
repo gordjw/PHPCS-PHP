@@ -3,3 +3,8 @@ PHPCS-PHP
 PHP interface to PHPCS
 
 Use results from PHPCS inside your own PHP programs.
+
+Usage:
+$phpcs = new PHPCS( "/path/to/check" );
+$results = $phpcs->generate_report();
+$results->_print();
