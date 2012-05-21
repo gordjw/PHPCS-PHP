@@ -2,15 +2,28 @@
 
 class PHPCS
 {
-    static function get_raw( $filename = "." )
+    public function __construct() {
+        spl_autoload_register( array( $this, 'autoload' ) );
+    }
+
+    private function autoload( $classname ) {
+	$classname = strtolower( $classname );
+        if( file_exists( dirname(__FILE__) . '/lib/' . $classname . '.php' ) )
+            require_once( dirname(__FILE__) . '/lib/' . $classname . '.php' );
+
+    }
+
+    private static function _get_raw( $filename )
     {
         exec( 'phpcs ' . $filename, $raw );
 
         return $raw;
     }
 
-    static function generate_report( $raw )
+    public function generate_report( $filename = "." )
     {
+	$raw = self::_get_raw( $filename );
+
         $report = new Report();
 
         foreach( $raw as $line )
@@ -29,10 +42,11 @@ class PHPCS
 
         return $report;
     }
+
 }
 
 
-
-$raw = PHPCS::get_raw();
-$report = PHPCS::generate_report( $raw );
-$report->show_all_files();
+$phpcs = new PHPCS();
+$report = $phpcs->generate_report();
+//$report->show_all_files();
+print_r( $report );
